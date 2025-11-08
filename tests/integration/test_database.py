@@ -53,3 +53,18 @@ def test_get_sessionmaker(mock_settings):
     engine = database.get_engine()
     SessionLocal = database.get_sessionmaker(engine)
     assert isinstance(SessionLocal, sessionmaker)
+
+def test_get_db_yields_and_closes(mock_settings):
+    """Test that get_db yields a session and closes it afterward."""
+    database = reload_database_module()
+    db_gen = database.get_db()
+
+    db = next(db_gen)
+    assert isinstance(db, database.SessionLocal().__class__)
+
+    with patch.object(db, "close") as mock_close:
+        try:
+            next(db_gen)
+        except StopIteration:
+            pass
+        mock_close.assert_called_once()
