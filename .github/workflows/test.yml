@@ -99,8 +99,8 @@ jobs:
         with:
           push: true
           tags: |
-            leopaulino/601_module9:latest
-            leopaulino/601_module9:${{ github.sha }}
+            leopaulino/601_module10:latest
+            leopaulino/601_module10:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=leopaulino/601_module9:cache
+          cache-from: type=registry,ref=leopaulino/601_module10:cache
           cache-to: type=inline,mode=max
